@@ -49,7 +49,7 @@ It's the Windows 10 Mobile Offline Update Project for deprecated Windows Phone 8
 
 Models with ★ are supported by Upgrade Advisor or OTC Updater.
 
-## Need feedbacks from these models:
+## Need feedbacks from these models
 
 - Nokia Lumia McLaren (id315-x)
 - Samsung ATIV S (SGH-T899M)
@@ -57,10 +57,10 @@ Models with ★ are supported by Upgrade Advisor or OTC Updater.
 - Samsung ATIV Odyssey (SCH-I930)
 - HTC One M8 for Windows (T-Mobile, 0P6B140)
 
-## Unsupported device:
+## Unsupported models
 
 - 4GB ROM devices (including Lumia 530, HTC 8S and Huawei Ascend W1)
-- HTC 8X
+- HTC 8X (including Global, Australian, Verizon, American GSM Carriers)
 - Hapanero
 - Other cancelled devices in 5th Generation (e.g. *Honjo*)
 - Devices already have Windows 10 Mobile installed out of factory
