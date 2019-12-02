@@ -69,10 +69,21 @@ Models with ★ are supported by Upgrade Advisor or OTC Updater.
 
 TBA
 
+## Extras:
+
+- Lumia 810 RM-878 to Windows Phone 8.1 GDR1
+- Samsung ATIV S (GT-I8750) from XXDOC2 (8.10.14157.200) to 8.10.14226.359
+- Samsung ATIV SE (SM-W750V) from initial to 8.10.14219.341
+- Huawei Ascend W2-T01/U00 from initial to 8.10.14219.341
+
+
 ## Credits:
 
-- Microsoft for iutool
-- Microsoft for getdulogs
-- Microsoft for packages in repo
-- Microsoft for OTCUpdater
+- Microsoft for iutool binary
+- Microsoft for getdulogs binary
+- Microsoft for packages
+- Microsoft for OTCUpdater binary
 - @gus33000 for Interop Tools
+- @ZephRay for contributing LG Lancet VW820
+- DPMason for contributing Lumia 1520, Samsung ATIV S/SE, Huawei Ascend W2-T01
+- WoodEar85 for his legacy Huawei Ascend W1 research
