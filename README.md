@@ -1,2 +1,3 @@
-# w10m_th2_oup
-Windows 10 Mobile Offline Update Project V5.2
+# Windows 10 Mobile Offline Update Project V5.2
+
+It's the Windows 10 Mobile Offline Update Project for deprecated Windows Phone 8.x devices.
