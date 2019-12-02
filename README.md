@@ -47,7 +47,7 @@ It's the Windows 10 Mobile Offline Update Project for deprecated Windows Phone 8
 - Panasonic Toughpad FZ-E1
 - TrekStor WinPhone 4.7
 
-Models with ★ are supported by Upgrade Advisor, these models are NOT RECOMMENDED to use this offline update package.
+Models with ★ are supported by Upgrade Advisor or OTC Updater.
 
 ## Need feedbacks from these models:
 
@@ -61,6 +61,9 @@ Models with ★ are supported by Upgrade Advisor, these models are NOT RECOMMEND
 
 - 4GB ROM devices (including Lumia 530, HTC 8S and Huawei Ascend W1)
 - HTC 8X
+- Hapanero
+- Other cancelled devices in 5th Generation (e.g. *Honjo*)
+- Devices already have Windows 10 Mobile installed out of factory
 
 ## Usage:
 
