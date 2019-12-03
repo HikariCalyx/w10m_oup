@@ -59,9 +59,10 @@ Models with ★ are supported by Upgrade Advisor or OTC Updater.
 
 ## Unsupported models
 
+- Phones that can't be updated to 8.10.14219.341 or newer
 - 4GB ROM devices (including Lumia 530, HTC 8S and Huawei Ascend W1)
 - HTC 8X (including Global, Australian, Verizon, American GSM Carriers)
-- Hapanero
+- RX-130 (*Hapanero*)
 - Other cancelled devices in 5th Generation (e.g. *Honjo*)
 - Devices already have Windows 10 Mobile installed out of factory
 
