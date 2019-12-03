@@ -88,3 +88,4 @@ TBA
 - @ZephRay for contributing LG Lancet VW820
 - DPMason for contributing Lumia 1520, Samsung ATIV S/SE, Huawei Ascend W2-T01
 - WoodEar85 for his legacy Huawei Ascend W1 research
+- GnuWin32 Project for [Gawk](http://gnuwin32.sourceforge.net/packages/gawk.htm)
