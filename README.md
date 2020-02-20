@@ -66,9 +66,15 @@ Models with ★ are supported by Upgrade Advisor or OTC Updater.
 - Other cancelled devices in 5th Generation (e.g. *Honjo*)
 - Devices already have Windows 10 Mobile installed out of factory
 
+## Where're packages in repo directory located?
+
+https://github.com/HikariCalyx/w10m_oup/blob/spkg_10586.107/repo/filelist.txt
+
+Unfortunately, those downloaded speech related files are lost, probably deleted by Microsoft by purpose.
+
 ## Usage:
 
-TBA
+https://forum.xda-developers.com/windows-10-mobile/guide-win10-mobile-offline-update-t3527340
 
 ## Extras:
 
@@ -76,7 +82,6 @@ TBA
 - Samsung ATIV S (GT-I8750) from XXDOC2 (8.10.14157.200) to 8.10.14226.359
 - Samsung ATIV SE (SM-W750V) from initial to 8.10.14219.341
 - Huawei Ascend W2-T01/U00 from initial to 8.10.14219.341
-
 
 ## Credits:
 
