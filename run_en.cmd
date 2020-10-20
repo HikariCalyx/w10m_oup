@@ -1,5 +1,5 @@
 @echo off
-title  INITIAL - HCTSW Windows 10 Mobile Offline Updater V5.2
+title  INITIAL - HCTSW Windows 10 Mobile Semi Offline Updater V5.3
 if not exist %systemroot%\system32\winload.exe (
 echo.
 echo ERROR: Your OS is unsupported. 
@@ -11,7 +11,7 @@ if exist temp rd /s /q temp
 if exist pkgs rd /s /q pkgs
 md temp
 md pkgs
-set appver=1056
+set appver=1060
 powershell -?>nul
 if %errorlevel% equ 9009 (
 echo.
@@ -25,55 +25,9 @@ exit
 for /f %%a in ('powershell -Command "Get-Date -format yyyyMMdd_HHmmss"') do set timestamp=%%a
 set path=%path%;%~dp0bin
 rem echo %path%
-title  VERIFY - HCTSW Windows 10 Mobile Offline Updater V5.2
-rem selfcheck
-echo.
-echo Checking file integrity on server...
-echo.
-if not exist win10oup.exe goto errornameincorrect
-bin\md5 -l -n win10oup.exe>temp\execmd5sum.txt
-set /p md5sum=<temp\execmd5sum.txt
-del temp\execmd5sum.txt
-bin\wget -q -O temp\md5sum http://fds.hikaricalyx.com/win10oup/%appver%/md5sum
-rem echo %errorlevel%
-if "%errorlevel%"=="8" (
-echo ERROR: This is unreleased executable! Where did you get that from?
-echo.
-echo Press any key to ignore this and continue.
-echo.
-pause>nul
-goto bypass
-)
-if "%errorlevel%"=="4" (
-echo ERROR: Server that verifies file corresponding can't be accessed.
-echo You may continue, but we can't guarantee this tool came from
-echo Hikari Calyx Tech correctly.
-echo.
-echo Press any key to ignore this and continue.
-echo/
-pause>nul
-goto bypass
-)
-set /p emd5sum=<temp\md5sum
-if not "%md5sum%"=="%emd5sum%" (
-echo ERROR: This tool is tampered and we can't guarantee if it's
-echo correct. You may continue.
-echo.
-echo IF YOU BOUGHT THIS FROM OTHERS, YOU'VE BEEN SCAMMED!
-echo.
-echo.Win10 OUP Project is never intent to be sold - you should ask
-echo for refund or report reseller who sold you this package.
-echo.
-echo Press any key to ignore this and continue.
-echo.
-pause>nul
-goto bypass
-)
-echo Verify pass! Thanks for supporting Hikari Calyx Tech.
-echo.
-:bypass
-title WELCOME - HCTSW Windows 10 Mobile Offline Updater V5.2
+title WELCOME - HCTSW Windows 10 Mobile Semi Offline Updater V5.3
 if not exist logs md logs
+echo.
 echo.Support page:
 echo.(Global) https://forum.xda-developers.com/windows-10-mobile/guide-win10-mobile-offline-update-t3527340
 echo.(CN1) https://www.dospy.wang/thread-6363-1-1.html
@@ -135,7 +89,7 @@ if "%econfirm%"=="yes" goto next1
 goto modellisting
 :next1
 set econfirm=0
-title ANALYZE - HCTSW Windows 10 Mobile Offline Updater V5.2
+title ANALYZE - HCTSW Windows 10 Mobile Semi Offline Updater V5.3
 echo.
 echo Analyzing the phone, please wait...
 echo.
@@ -185,15 +139,9 @@ findstr "RM-1017 RM-1018 RM-1019 RM-1020 W1- A62 E260 E8" temp\pmmn.txt
 if %errorlevel% equ 0 set 4gbrom=1
 findstr "C62 8X 6990LVW" temp\pmmn.txt
 if %errorlevel% equ 0 set htc8x=1
-findstr 0P6B1 temp\pmmn.txt
+>nul findstr 0P6B1 temp\pmmn.txt
 if %errorlevel% equ 0 (
-set htcm8=1
-set gsm=1
-)
-findstr 6995LVW temp\pmmn.txt
-if %errorlevel% equ 0 (
-set htcm8=1
-set gsm=0
+set htcm8gsm=1
 )
 del temp\pmmn.txt
 if "%4gbrom%"=="1" (
@@ -221,35 +169,38 @@ echo.
 findstr Microsoft temp\InstalledPackages.csv>temp\pkglist1.txt
 bin\awk -F, "{print $2}" temp\pkglist1.txt>temp\pkglist2.txt
 >temp\pkglist3.txt findstr /V MMOSLOADER temp\pkglist2.txt
-for /f %%i in (temp\pkglist3.txt) do echo copy repo\%%i.spk* pkgs\>>temp\pkgcopy.cmd
-if "%htcm8%"=="1" (
-findstr MS_NAVIGATIONBAR.MainOS_LANG pkglist3.txt>htcm8_navbarlist.txt
-for /f %%i in (htcm8_navbarlist.txt) do echo copy repo\htcm8_navbar\%%i pkgs\>>temp\pkgcopy2.cmd
+if not exist repo md repo
+if not exist pkgs md pkgs
+rem for /f %%i in (temp\pkglist3.txt) do echo copy repo\%%i.spk* pkgs\>>temp\pkgcopy.cmd
+for /f %%i in (temp\pkglist3.txt) do (
+if exist repo\%%i.spk* ( copy repo\%%i.spk* pkgs\ ) else ( findstr /i /c:"%%i." db\filelist.txt>>temp\pkglist4.txt )
+)
+if exist temp\pkglist4.txt (
+bin\aria2c -i temp\pkglist4.txt --dir=pkgs\
+set downloaded=1
 )
 echo.
-echo Copying packages, please wait...
->nul call temp\pkgcopy.cmd
-del temp\pkgcopy.cmd
-if "%htcm8%"=="1" (
->temp\copiedpkgs.txt dir /b pkgs\
-findstr ms_navigationbar.mainos_lang temp\copiedpkgs.txt >temp\copiednavbar.txt 
-for /f %%i in (temp\copiednavbar.txt) do echo del pkgs\%%i >>temp\delpkg.cmd
->nul temp\delpkg.cmd
->nul temp\pkgcopy2.cmd
-if exist temp\pkgcopy2.cmd del temp\pkgcopy2.cmd
-if "%gsm%"=="1" (
-echo. Copying East Asian Language Packs...
+if "%htcm8gsm%"=="1" (
+echo. Acquiring East Asian Language Packs...
 echo.
->nul copy repo\microsoft.prerelease_protected.mainos_lang_zh* pkgs\
->nul copy repo\microsoft.prerelease_protected.mainos_lang_ja* pkgs\
->nul copy repo\microsoft.prerelease_protected.mainos_lang_ko* pkgs\
->nul copy repo\microsoft.mainos.production_lang_zh* pkgs\
->nul copy repo\microsoft.mainos.production_lang_ja* pkgs\
->nul copy repo\microsoft.mainos.production_lang_ko* pkgs\
+for /f %%i in (db\eastasianlanguage.txt) do (
+if exist repo\%%i (copy repo\%%i.spk* pkgs\) else (
+findstr /i /c:"%%i" db\filelist.txt>>temp\ealang.txt
+if exist temp\ealang.txt (
+bin\aria2c -i temp\ealang.txt --dir=pkgs\
+set downloaded=1
 )
 )
-
-title PUSHING - HCTSW Windows 10 Mobile Offline Updater V5.2
+)
+)
+if "%downloaded%"=="1" (
+title SAVING - HCTSW Windows 10 Mobile Semi Offline Updater V5.3
+echo.
+echo Saving downloaded extra packages to repository...
+echo.
+robocopy /XX pkgs\ repo\
+)
+title PUSHING - HCTSW Windows 10 Mobile Semi Offline Updater V5.3
 echo.
 echo Pushing packages, please wait...
 echo.
@@ -259,6 +210,17 @@ echo.
 echo All done. Please check if your phone is pushed successfully.
 echo Thanks for supporting my work. 
 echo.
+echo If anything wrong happened, please attach error_report_%timestamp%.cab
+echo in logs directory to the topic to find out what's wrong.
+echo.
+getdulogs -o .\logs\error_report_%timestamp%.cab
+>nul expand .\logs\error_report_%timestamp%.cab -F:ImgUpd.log temp\
+echo.
+echo If there's error, following info could be useful for debugging:
+findstr /N error .\temp\ImgUpd.log
+if %errorlevel%==1 echo Seems there's no problem during update procedure.
+echo.
+>nul ping 127.0.0.1 -n 10
 echo Press any key to exit.
 pause>nul
 goto eof
@@ -266,7 +228,7 @@ goto eof
 :errornameincorrect
 echo.
 echo ERROR: Executable file name incorrect.
-echo Please rename it to win10oup.exe before proceed.
+echo Please rename it to wxmsoup.exe before proceed.
 pause>nul
 goto eof
 
